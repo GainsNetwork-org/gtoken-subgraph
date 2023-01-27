@@ -1,0 +1,25 @@
+type Transfer @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+
+  "Sender"
+  from: Account!
+
+  "Receiver"
+  to: Account!
+
+  "Number of new shares minted"
+  shares: BigInt!
+
+  "Market rate at time of transfer"
+  approxAssetValue: BigInt!
+
+  "Transaction hash"
+  txHash: Bytes!
+
+  "Timestamp of deposit"
+  timestamp: BigInt!
+
+  "Block number of deposit"
+  blockNumber: BigInt!
+}

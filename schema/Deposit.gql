@@ -1,0 +1,22 @@
+type Deposit @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+
+  "Account making deposit"
+  account: Account!
+
+  "Number of assets deposited"
+  assets: BigInt!
+
+  "Number of new shares minted"
+  shares: BigInt!
+
+  "Transaction hash"
+  txHash: Bytes!
+
+  "Timestamp of deposit"
+  timestamp: BigInt!
+
+  "Block number of deposit"
+  blockNumber: BigInt!
+}
