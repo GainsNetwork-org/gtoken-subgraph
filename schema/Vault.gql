@@ -2,8 +2,17 @@ type Vault @entity {
   "Vault address"
   id: ID!
 
+  "Epoch ID"
+  epoch: BigInt!
+
   "Exchange rate"
   shareToAssets: BigDecimal!
+
+  "Exchange rate (raw)"
+  shareToAssetsRaw: BigInt!
+
+  "Asset decimals"
+  assetDecimals: Int!
 
   "Block number of last update"
   lastUpdateBlock: BigInt!

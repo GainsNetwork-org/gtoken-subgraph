@@ -20,10 +20,10 @@ type AccountVault @entity {
   account: Account!
   "Share balance"
   sharesBalance: BigDecimal!
-  "Total assets supplied"
-  totalAssetsSupplied: BigDecimal!
-  "Total assets redeemed"
-  totalAssetsRedeemed: BigDecimal!
+  "Total assets deposited"
+  totalAssetsDeposited: BigDecimal!
+  "Total assets withdrawn"
+  totalAssetsWithdrawn: BigDecimal!
   "Deposits"
   deposits: [Deposit!]! @derivedFrom(field: "accountVault")
   "Withdraws"
@@ -104,8 +104,14 @@ type Transfer @entity {
 type Vault @entity {
   "Vault address"
   id: ID!
+  "Epoch ID"
+  epoch: BigInt!
   "Exchange rate"
   shareToAssets: BigDecimal!
+  "Exchange rate (raw)"
+  shareToAssetsRaw: BigInt!
+  "Asset decimals"
+  assetDecimals: Int!
   "Block number of last update"
   lastUpdateBlock: BigInt!
   "Timestamp of last update"
