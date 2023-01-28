@@ -1,6 +1,9 @@
 import { log } from '@graphprotocol/graph-ts';
 import { Transfer } from '../../types/GToken/GToken';
-import { createOrLoadAccount } from '../../utils';
+import { createOrLoadAccount, createOrLoadTransaction } from '../../utils';
+import { createOrLoadAccountVault } from '../../utils/access/accountVault';
+import { createOrLoadTransfer } from '../../utils/access/transfer';
+import { createOrLoadVault } from '../../utils/access/vault';
 
 export function handleTransfer(event: Transfer): void {
   log.info('[handleTransfer] From {}, to {}, amount {}, txHash {}', [
@@ -10,14 +13,23 @@ export function handleTransfer(event: Transfer): void {
     event.transaction.hash.toHexString(),
   ]);
 
-  const from = event.params.from.toHexString();
-  const accountFrom = createOrLoadAccount(from, true);
-
+  const shares = event.params.value;
   const transaction = createOrLoadTransaction(event, 'Transfer', true);
-  const to = event.params.to.toHexString();
-  const accountTo = createOrLoadAccount(to, true);
-
-  // create transfer
-
-  // modify accounts balances
+  const vault = createOrLoadVault(event.address.toHexString(), true);
+  const fromAccount = createOrLoadAccount(event.params.from.toHexString(), true);
+  const fromAccountVault = createOrLoadAccountVault(fromAccount, vault, true);
+  const toAccount = createOrLoadAccount(event.params.to.toHexString(), true);
+  const toAccountVault = createOrLoadAccountVault(toAccount, vault, true);
+  const transfer = createOrLoadTransfer(
+    {
+      from: fromAccount,
+      to: toAccount,
+      fromAccountVault,
+      toAccountVault,
+      vault,
+      transaction,
+      shares,
+    },
+    true
+  );
 }

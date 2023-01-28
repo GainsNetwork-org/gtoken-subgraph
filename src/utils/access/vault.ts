@@ -1,4 +1,5 @@
-import { Account, AccountVault, Vault } from '../../types/schema';
+import { ethereum } from '@graphprotocol/graph-ts';
+import { Vault } from '../../types/schema';
 
 export function createOrLoadVault(id: string, save: boolean): Vault {
   let vault = Vault.load(id);
@@ -11,16 +12,15 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
   return vault as Vault;
 }
 
-export function createOrLoadAccountVault(vault: Vault, account: Account, save: boolean): AccountVault {
-  const id = vault.id + '-' + account.id;
-  let accountVault = AccountVault.load(id);
-  if (accountVault == null) {
-    accountVault = new AccountVault(id);
-    accountVault.vault = vault.id;
-    accountVault.account = account.id;
-    if (save) {
-      accountVault.save();
-    }
+export function updateVaultForBlock(vault: Vault, block: ethereum.Block, save: boolean): void {
+  // Only update once per block
+  if (vault.lastUpdateBlock != null && block.number <= vault.lastUpdateBlock) {
+    return;
   }
-  return accountVault as AccountVault;
+
+  // TODO NEXT: Update exchangeRate
+
+  if (save) {
+    vault.save();
+  }
 }

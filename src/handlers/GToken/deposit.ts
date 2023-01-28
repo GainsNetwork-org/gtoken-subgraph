@@ -1,6 +1,7 @@
 import { log } from '@graphprotocol/graph-ts';
 import { Deposit } from '../../types/GToken/GToken';
 import { createOrLoadAccount, createOrLoadDeposit, createOrLoadTransaction } from '../../utils';
+import { createOrLoadAccountVault, createOrLoadVault } from '../../utils/access/vault';
 
 /**
  * Account deposits assets into the vault in exchange for gTokens.
@@ -18,6 +19,8 @@ export function handleDeposit(event: Deposit): void {
   ]);
 
   const transaction = createOrLoadTransaction(event, 'Deposit', true);
+  const vault = createOrLoadVault(event.address.toHexString(), true);
   const account = createOrLoadAccount(recipient.toHexString(), true);
-  const deposit = createOrLoadDeposit({ account, assets, shares, transaction }, true);
+  const accountVault = createOrLoadAccountVault(account, vault, true);
+  createOrLoadDeposit({ account, assets, shares, transaction, vault, accountVault }, true);
 }

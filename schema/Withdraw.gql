@@ -8,6 +8,9 @@ type Withdraw @entity {
   "Account making deposit"
   account: Account!
 
+  "Account vault"
+  accountVault: AccountVault!
+
   "Number of new shares deposited"
   shares: BigInt!
 

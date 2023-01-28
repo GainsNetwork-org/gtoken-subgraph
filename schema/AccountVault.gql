@@ -16,4 +16,16 @@ type AccountVault @entity {
 
   "Total assets redeemed"
   totalAssetsRedeemed: BigDecimal!
+
+  "Deposits"
+  deposits: [Deposit!]! @derivedFrom(field: "accountVault")
+
+  "Withdraws"
+  withdraws: [Withdraw!]! @derivedFrom(field: "accountVault")
+
+  "Total shares transferred to"
+  sharesReceived: [Transfer!]! @derivedFrom(field: "toAccountVault")
+
+  "Total shares transferred from"
+  sharesSent: [Transfer!]! @derivedFrom(field: "fromAccountVault")
 }

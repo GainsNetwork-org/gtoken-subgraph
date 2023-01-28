@@ -24,6 +24,14 @@ type AccountVault @entity {
   totalAssetsSupplied: BigDecimal!
   "Total assets redeemed"
   totalAssetsRedeemed: BigDecimal!
+  "Deposits"
+  deposits: [Deposit!]! @derivedFrom(field: "accountVault")
+  "Withdraws"
+  withdraws: [Withdraw!]! @derivedFrom(field: "accountVault")
+  "Total shares transferred to"
+  sharesReceived: [Transfer!]! @derivedFrom(field: "toAccountVault")
+  "Total shares transferred from"
+  sharesSent: [Transfer!]! @derivedFrom(field: "fromAccountVault")
 }
 
 type Deposit @entity {
@@ -33,6 +41,8 @@ type Deposit @entity {
   vault: Vault!
   "Account making deposit"
   account: Account!
+  "Account vault"
+  accountVault: AccountVault!
   "Number of assets deposited"
   assets: BigInt!
   "Number of new shares minted"
@@ -77,8 +87,12 @@ type Transfer @entity {
   vault: Vault!
   "Sender"
   from: Account!
+  "From account vault"
+  fromAccountVault: AccountVault!
   "Receiver"
   to: Account!
+  "To account vault"
+  toAccountVault: AccountVault!
   "Number of new shares minted"
   shares: BigInt!
   "Market rate at time of transfer"
@@ -92,6 +106,10 @@ type Vault @entity {
   id: ID!
   "Exchange rate"
   shareToAssets: BigDecimal!
+  "Block number of last update"
+  lastUpdateBlock: BigInt!
+  "Timestamp of last update"
+  lastUpdateTimestamp: BigInt!
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
   "Withdraws from vault"
@@ -107,6 +125,8 @@ type Withdraw @entity {
   vault: Vault!
   "Account making deposit"
   account: Account!
+  "Account vault"
+  accountVault: AccountVault!
   "Number of new shares deposited"
   shares: BigInt!
   "Number of assets received"

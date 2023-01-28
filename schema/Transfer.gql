@@ -8,8 +8,14 @@ type Transfer @entity {
   "Sender"
   from: Account!
 
+  "From account vault"
+  fromAccountVault: AccountVault!
+
   "Receiver"
   to: Account!
+
+  "To account vault"
+  toAccountVault: AccountVault!
 
   "Number of new shares minted"
   shares: BigInt!

@@ -8,6 +8,9 @@ type Deposit @entity {
   "Account making deposit"
   account: Account!
 
+  "Account vault"
+  accountVault: AccountVault!
+
   "Number of assets deposited"
   assets: BigInt!
 

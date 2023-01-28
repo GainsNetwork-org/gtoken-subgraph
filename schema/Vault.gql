@@ -5,6 +5,12 @@ type Vault @entity {
   "Exchange rate"
   shareToAssets: BigDecimal!
 
+  "Block number of last update"
+  lastUpdateBlock: BigInt!
+
+  "Timestamp of last update"
+  lastUpdateTimestamp: BigInt!
+
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
 
