@@ -2,6 +2,9 @@ type Withdraw @entity {
   "Generated ID - transaction-log"
   id: ID!
 
+  "Vault"
+  vault: Vault!
+
   "Account making deposit"
   account: Account!
 
@@ -11,12 +14,6 @@ type Withdraw @entity {
   "Number of assets received"
   assets: BigInt!
 
-  "Transaction hash"
-  txHash: Bytes!
-
-  "Timestamp of deposit"
-  timestamp: BigInt!
-
-  "Block number of deposit"
-  blockNumber: BigInt!
+  "Transaction"
+  transaction: Transaction!
 }

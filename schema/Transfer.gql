@@ -2,6 +2,9 @@ type Transfer @entity {
   "Generated ID - transaction-log"
   id: ID!
 
+  "Vault"
+  vault: Vault!
+
   "Sender"
   from: Account!
 
@@ -14,12 +17,6 @@ type Transfer @entity {
   "Market rate at time of transfer"
   approxAssetValue: BigInt!
 
-  "Transaction hash"
-  txHash: Bytes!
-
-  "Timestamp of deposit"
-  timestamp: BigInt!
-
-  "Block number of deposit"
-  blockNumber: BigInt!
+  "Transaction"
+  transaction: Transaction!
 }

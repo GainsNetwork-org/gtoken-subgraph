@@ -1,0 +1,7 @@
+{
+  "network": "matic",
+  "gToken": {
+    "address": "0x91993f2101cc758D0dEB7279d41e880F7dEFe827",
+    "startBlock": 36865592
+  }
+}

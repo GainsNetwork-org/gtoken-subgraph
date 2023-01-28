@@ -1,0 +1,19 @@
+type AccountVault @entity {
+  "Generated ID - account-vault"
+  id: ID!
+
+  "Vault"
+  vault: Vault!
+
+  "Account"
+  account: Account!
+
+  "Share balance"
+  sharesBalance: BigDecimal!
+
+  "Total assets supplied"
+  totalAssetsSupplied: BigDecimal!
+
+  "Total assets redeemed"
+  totalAssetsRedeemed: BigDecimal!
+}

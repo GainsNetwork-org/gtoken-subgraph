@@ -2,11 +2,15 @@ type Account @entity {
   "Address"
   id: ID!
 
-  sharesBalance: BigDecimal!
-  totalAssetsSupplied: BigDecimal!
-  totalAssetsRedeemed: BigDecimal!
-
+  "Total assets deposited"
   deposits: [Deposit!]! @derivedFrom(field: "account")
-  withdraws: [Withdraw!]! @derivedFrom(field: "account")
-  transfers: [Transfer!]! @derivedFrom(field: "account")
+
+  "Total assets withdrawn"
+  Withdraws: [Withdraw!]! @derivedFrom(field: "account")
+
+  "Total shares transferred to"
+  sharesReceived: [Transfer!]! @derivedFrom(field: "to")
+
+  "Total shares transferred from"
+  sharesSent: [Transfer!]! @derivedFrom(field: "from")
 }

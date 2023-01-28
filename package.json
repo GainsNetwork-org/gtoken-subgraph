@@ -11,10 +11,10 @@
   },
   "scripts": {
     "clean": "rimraf ./src/types ./build subgraph.yaml schema.gql",
-    "build": "graph build",
-    "codegen": "graph codegen --output-dir src/types/",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
-    "deploy:hosted": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --access-token ${GRAPH_ACCESS_TOKEN}",
+    "build": "npx graph build",
+    "codegen": "npx graph codegen --output-dir src/types/",
+    "deploy": "npx graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
+    "deploy:hosted": "npx graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --access-token ${GRAPH_ACCESS_TOKEN}",
     "generate:schema": "node merge.js",
     "configure:mumbai": "yarn clean && yarn generate:schema && yarn prepare:mumbai && yarn codegen",
     "configure:polygon": "yarn clean && yarn generate:schema && yarn prepare:polygon && yarn codegen",
@@ -27,18 +27,14 @@
     "deploy:arbitrum": "yarn clean && yarn configure:arbitrum && yarn deploy:hosted gainsnetwork/gtoken-arbitrum"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.37.7",
-    "@graphprotocol/graph-ts": "^0.29.2",
+    "@graphprotocol/graph-cli": "^0.30.2",
+    "@graphprotocol/graph-ts": "^0.27.0",
     "@graphql-tools/load-files": "^6.6.1",
     "@graphql-tools/merge": "^8.3.16",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "eslint": "^8.32.0",
-    "eslint-config-prettier": "^8.6.0",
     "graphql": "^16.6.0",
     "mustache": "^4.2.0",
     "prettier": "^2.8.3",
-    "source-map-support": "^0.5.21",
-    "typescript": "^4.9.4"
+    "rimraf": "^4.1.2",
+    "source-map-support": "^0.5.21"
   }
 }

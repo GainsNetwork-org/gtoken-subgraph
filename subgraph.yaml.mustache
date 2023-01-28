@@ -3,3 +3,32 @@ description: >-
   gToken data
 schema:
   file: ./schema.gql
+dataSources:
+  - kind: ethereum
+    name: GToken
+    network: '{{network}}'
+    source:
+      address: '{{gToken.address}}'
+      abi: GToken
+      startBlock: {{gToken.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - Withdraw
+        - Transfer
+        - Transaction
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleWithdraw
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/GToken/index.ts
+      

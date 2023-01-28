@@ -1,0 +1,116 @@
+type Account @entity {
+  "Address"
+  id: ID!
+  "Total assets deposited"
+  deposits: [Deposit!]! @derivedFrom(field: "account")
+  "Total assets withdrawn"
+  Withdraws: [Withdraw!]! @derivedFrom(field: "account")
+  "Total shares transferred to"
+  sharesReceived: [Transfer!]! @derivedFrom(field: "to")
+  "Total shares transferred from"
+  sharesSent: [Transfer!]! @derivedFrom(field: "from")
+}
+
+type AccountVault @entity {
+  "Generated ID - account-vault"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account"
+  account: Account!
+  "Share balance"
+  sharesBalance: BigDecimal!
+  "Total assets supplied"
+  totalAssetsSupplied: BigDecimal!
+  "Total assets redeemed"
+  totalAssetsRedeemed: BigDecimal!
+}
+
+type Deposit @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account making deposit"
+  account: Account!
+  "Number of assets deposited"
+  assets: BigInt!
+  "Number of new shares minted"
+  shares: BigInt!
+  "Transaction"
+  transaction: Transaction!
+}
+
+type Transaction @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+  "Log index related to the event. A Transaction might contain multiple events."
+  logIndex: BigInt!
+  "The event name / call stacktrace"
+  event: String!
+  "The transaction sender"
+  from: Bytes!
+  "Gas price used in the transaction"
+  gasPrice: BigInt!
+  "Gas limit used in the transaction"
+  gasLimit: BigInt!
+  "Transaction hash"
+  hash: Bytes!
+  "The transaction index"
+  index: BigInt!
+  "Address that received the transaction"
+  to: Bytes!
+  "Ether value sent in the transaction"
+  value: BigInt!
+  "Timestamp when the transaction was executed"
+  timestamp: BigInt!
+  "Gas limit used in the current block"
+  blockGasLimit: BigInt!
+  "Block number"
+  blockNumber: BigInt!
+}
+
+type Transfer @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Sender"
+  from: Account!
+  "Receiver"
+  to: Account!
+  "Number of new shares minted"
+  shares: BigInt!
+  "Market rate at time of transfer"
+  approxAssetValue: BigInt!
+  "Transaction"
+  transaction: Transaction!
+}
+
+type Vault @entity {
+  "Vault address"
+  id: ID!
+  "Exchange rate"
+  shareToAssets: BigDecimal!
+  "Deposits to vault"
+  deposits: [Deposit!]! @derivedFrom(field: "vault")
+  "Withdraws from vault"
+  withdraws: [Withdraw!]! @derivedFrom(field: "vault")
+  "Transfers of vault shares"
+  transfers: [Transfer!]! @derivedFrom(field: "vault")
+}
+
+type Withdraw @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account making deposit"
+  account: Account!
+  "Number of new shares deposited"
+  shares: BigInt!
+  "Number of assets received"
+  assets: BigInt!
+  "Transaction"
+  transaction: Transaction!
+}

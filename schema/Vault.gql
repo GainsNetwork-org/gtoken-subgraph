@@ -1,0 +1,16 @@
+type Vault @entity {
+  "Vault address"
+  id: ID!
+
+  "Exchange rate"
+  shareToAssets: BigDecimal!
+
+  "Deposits to vault"
+  deposits: [Deposit!]! @derivedFrom(field: "vault")
+
+  "Withdraws from vault"
+  withdraws: [Withdraw!]! @derivedFrom(field: "vault")
+
+  "Transfers of vault shares"
+  transfers: [Transfer!]! @derivedFrom(field: "vault")
+}

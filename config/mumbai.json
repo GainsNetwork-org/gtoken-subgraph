@@ -1,0 +1,7 @@
+{
+  "network": "mumbai",
+  "gToken": {
+    "address": "0x5215C8B3e76D493c8bcb9A7352F7afe18A6bb091",
+    "startBlock": 29686467
+  }
+}
