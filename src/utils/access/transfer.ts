@@ -1,4 +1,4 @@
-import { BigInt } from '@graphprotocol/graph-ts';
+import { BigDecimal, BigInt } from '@graphprotocol/graph-ts';
 import { Account, AccountVault, Transaction, Transfer, Vault } from '../../types/schema';
 
 export function generateTransferId(from: Account, to: Account, transaction: Transaction): string {
@@ -11,7 +11,7 @@ export class TransferInput {
   to!: Account;
   toAccountVault!: AccountVault;
   vault!: Vault;
-  shares!: BigInt;
+  shares!: BigDecimal;
   transaction!: Transaction;
 }
 
@@ -34,7 +34,7 @@ export function createOrLoadTransfer(data: TransferInput, save: boolean): Transf
     transfer.toAccountVault = toAccountVault.id;
     transfer.vault = vault.id;
     transfer.shares = shares;
-    transfer.shares = shares;
+    transfer.assetValue = vault.shareToAssets.times(shares).truncate(vault.assetDecimals);
     transfer.transaction = transaction.id;
     if (save) {
       transfer.save();

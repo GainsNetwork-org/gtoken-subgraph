@@ -3,13 +3,10 @@ type Vault @entity {
   id: ID!
 
   "Epoch ID"
-  epoch: BigInt!
+  epoch: Int!
 
   "Exchange rate"
   shareToAssets: BigDecimal!
-
-  "Exchange rate (raw)"
-  shareToAssetsRaw: BigInt!
 
   "Asset decimals"
   assetDecimals: Int!

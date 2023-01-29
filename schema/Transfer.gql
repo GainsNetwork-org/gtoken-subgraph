@@ -18,10 +18,10 @@ type Transfer @entity {
   toAccountVault: AccountVault!
 
   "Number of new shares minted"
-  shares: BigInt!
+  shares: BigDecimal!
 
   "Market rate at time of transfer"
-  approxAssetValue: BigInt!
+  assetValue: BigDecimal!
 
   "Transaction"
   transaction: Transaction!

@@ -44,9 +44,9 @@ type Deposit @entity {
   "Account vault"
   accountVault: AccountVault!
   "Number of assets deposited"
-  assets: BigInt!
+  assets: BigDecimal!
   "Number of new shares minted"
-  shares: BigInt!
+  shares: BigDecimal!
   "Transaction"
   transaction: Transaction!
 }
@@ -94,9 +94,9 @@ type Transfer @entity {
   "To account vault"
   toAccountVault: AccountVault!
   "Number of new shares minted"
-  shares: BigInt!
+  shares: BigDecimal!
   "Market rate at time of transfer"
-  approxAssetValue: BigInt!
+  assetValue: BigDecimal!
   "Transaction"
   transaction: Transaction!
 }
@@ -105,11 +105,9 @@ type Vault @entity {
   "Vault address"
   id: ID!
   "Epoch ID"
-  epoch: BigInt!
+  epoch: Int!
   "Exchange rate"
   shareToAssets: BigDecimal!
-  "Exchange rate (raw)"
-  shareToAssetsRaw: BigInt!
   "Asset decimals"
   assetDecimals: Int!
   "Block number of last update"
@@ -134,9 +132,9 @@ type Withdraw @entity {
   "Account vault"
   accountVault: AccountVault!
   "Number of new shares deposited"
-  shares: BigInt!
+  shares: BigDecimal!
   "Number of assets received"
-  assets: BigInt!
+  assets: BigDecimal!
   "Transaction"
   transaction: Transaction!
 }

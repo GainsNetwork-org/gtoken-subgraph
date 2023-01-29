@@ -1,4 +1,4 @@
-import { BigInt } from '@graphprotocol/graph-ts';
+import { BigDecimal, BigInt } from '@graphprotocol/graph-ts';
 import { Account, Withdraw, Transaction, Vault, AccountVault } from '../../types/schema';
 
 export function generateWithdrawId(account: Account, transaction: Transaction): string {
@@ -9,8 +9,8 @@ export class WithdrawInput {
   account!: Account;
   vault!: Vault;
   accountVault!: AccountVault;
-  assets!: BigInt;
-  shares!: BigInt;
+  assets!: BigDecimal;
+  shares!: BigDecimal;
   transaction!: Transaction;
 }
 

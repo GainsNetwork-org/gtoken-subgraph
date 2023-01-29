@@ -12,8 +12,7 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     vault.assetDecimals = vaultContract.decimals();
     vault.lastUpdateBlock = 0;
     vault.lastUpdateTimestamp = 0;
-    vault.epoch = BigInt.fromI32(0);
-    vault.shareToAssetsRaw = BigInt.fromI32(0);
+    vault.epoch = 0;
     vault.shareToAssets = ZERO_BD;
 
     if (save) {
@@ -31,9 +30,8 @@ export function updateVaultForBlock(vault: Vault, block: ethereum.Block, save: b
 
   const vaultContract = GToken.bind(Address.fromString(vault.id));
 
-  vault.epoch = vaultContract.currentEpoch();
-  vault.shareToAssetsRaw = vaultContract.shareToAssetsPrice();
-  vault.shareToAssets = vault.shareToAssetsRaw.toBigDecimal().div(exponentToBigDecimal(18)).truncate(18);
+  vault.epoch = vaultContract.currentEpoch().toI32();
+  vault.shareToAssets = vaultContract.shareToAssetsPrice().toBigDecimal().div(exponentToBigDecimal(18)).truncate(18);
   vault.lastUpdateBlock = block.number.toI32();
   vault.lastUpdateTimestamp = block.timestamp.toI32();
   if (save) {

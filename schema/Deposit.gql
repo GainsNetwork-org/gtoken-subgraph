@@ -12,10 +12,10 @@ type Deposit @entity {
   accountVault: AccountVault!
 
   "Number of assets deposited"
-  assets: BigInt!
+  assets: BigDecimal!
 
   "Number of new shares minted"
-  shares: BigInt!
+  shares: BigDecimal!
 
   "Transaction"
   transaction: Transaction!

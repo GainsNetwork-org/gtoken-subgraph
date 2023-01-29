@@ -12,10 +12,10 @@ type Withdraw @entity {
   accountVault: AccountVault!
 
   "Number of new shares deposited"
-  shares: BigInt!
+  shares: BigDecimal!
 
   "Number of assets received"
-  assets: BigInt!
+  assets: BigDecimal!
 
   "Transaction"
   transaction: Transaction!

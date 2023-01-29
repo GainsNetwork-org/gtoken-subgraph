@@ -14,7 +14,7 @@ export function handleTransfer(event: Transfer): void {
     event.transaction.hash.toHexString(),
   ]);
 
-  const shares = event.params.value;
+  const sharesAmount = event.params.value.toBigDecimal().div(GTOKEN_DECIMALS_BD).truncate(GTOKEN_DECIMALS);
   const transaction = createOrLoadTransaction(event, 'Transfer', true);
   let vault = createOrLoadVault(event.address.toHexString(), false);
   vault = updateVaultForBlock(vault, event.block, true);
@@ -24,7 +24,7 @@ export function handleTransfer(event: Transfer): void {
   const to = event.params.to.toHexString();
   const toAccount = createOrLoadAccount(to, true);
   const toAccountVault = createOrLoadAccountVault(toAccount, vault, true);
-  createOrLoadTransfer(
+  const transfer = createOrLoadTransfer(
     {
       from: fromAccount,
       to: toAccount,
@@ -32,23 +32,21 @@ export function handleTransfer(event: Transfer): void {
       toAccountVault,
       vault,
       transaction,
-      shares,
+      shares: sharesAmount,
     },
     true
   );
 
-  const assetAmount = vault.shareToAssets.times(shares.toBigDecimal().div(GTOKEN_DECIMALS_BD));
-  const assetAmountTruncated = assetAmount.truncate(vault.assetDecimals);
-  const sharesAmountTruncated = shares.toBigDecimal().div(GTOKEN_DECIMALS_BD).truncate(GTOKEN_DECIMALS);
+  const assetAmountTruncated = transfer.assetValue;
 
   if (from !== ZERO_ADDRESS) {
     fromAccountVault.totalAssetsWithdrawn = fromAccountVault.totalAssetsWithdrawn.plus(assetAmountTruncated);
-    fromAccountVault.sharesBalance.minus(sharesAmountTruncated);
+    fromAccountVault.sharesBalance.minus(sharesAmount);
   }
 
   if (to !== ZERO_ADDRESS) {
     toAccountVault.totalAssetsDeposited = toAccountVault.totalAssetsDeposited.plus(assetAmountTruncated);
-    toAccountVault.sharesBalance.plus(sharesAmountTruncated);
+    toAccountVault.sharesBalance.plus(sharesAmount);
   }
 
   fromAccountVault.save();
