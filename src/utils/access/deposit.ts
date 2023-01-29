@@ -5,17 +5,22 @@ export function generateDepositId(account: Account, transaction: Transaction): s
   return account.id + '-' + transaction.hash.toHexString();
 }
 
-export type DepositInput = {
-  account: Account;
-  vault: Vault;
-  accountVault: AccountVault;
-  assets: BigInt;
-  shares: BigInt;
-  transaction: Transaction;
-};
+export class DepositInput {
+  account!: Account;
+  vault!: Vault;
+  accountVault!: AccountVault;
+  assets!: BigInt;
+  shares!: BigInt;
+  transaction!: Transaction;
+}
 
 export function createOrLoadDeposit(data: DepositInput, save: boolean): Deposit {
-  const { account, assets, shares, transaction, vault, accountVault } = data;
+  const account = data.account;
+  const assets = data.assets;
+  const shares = data.shares;
+  const transaction = data.transaction;
+  const vault = data.vault;
+  const accountVault = data.accountVault;
   const id = generateDepositId(account, transaction);
   let deposit = Deposit.load(id);
   if (deposit == null) {

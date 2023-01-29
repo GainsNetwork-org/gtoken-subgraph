@@ -22,9 +22,9 @@
     "prepare:mumbai": "mustache config/mumbai.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:polygon": "mustache config/polygon.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.yaml.mustache > subgraph.yaml",
-    "deploy:mumbai": "yarn clean && yarn configure:mumbai && yarn deploy:hosted gainsnetwork/gtoken-mumbai",
-    "deploy:polygon": "yarn clean && yarn configure:polygon && yarn deploy:hosted gainsnetwork/gtoken-polygon",
-    "deploy:arbitrum": "yarn clean && yarn configure:arbitrum && yarn deploy:hosted gainsnetwork/gtoken-arbitrum"
+    "deploy:mumbai": "yarn clean && yarn configure:mumbai && yarn deploy:hosted thebuidler/gtoken-mumbai",
+    "deploy:polygon": "yarn clean && yarn configure:polygon && yarn deploy:hosted thebuidler/gtoken-polygon",
+    "deploy:arbitrum": "yarn clean && yarn configure:arbitrum && yarn deploy:hosted thebuidler/gtoken-arbitrum"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.30.2",

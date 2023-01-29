@@ -1,7 +1,8 @@
 import { log } from '@graphprotocol/graph-ts';
 import { Deposit } from '../../types/GToken/GToken';
 import { createOrLoadAccount, createOrLoadDeposit, createOrLoadTransaction } from '../../utils';
-import { createOrLoadAccountVault, createOrLoadVault } from '../../utils/access/vault';
+import { createOrLoadVault } from '../../utils/access/vault';
+import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 
 /**
  * Account deposits assets into the vault in exchange for gTokens.

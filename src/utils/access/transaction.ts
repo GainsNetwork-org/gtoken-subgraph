@@ -6,7 +6,10 @@ export function generateTransactionId(transactionHash: string, logIndex: string)
 }
 
 export function createOrLoadTransaction(event: ethereum.Event, action: string, save: boolean): Transaction {
-  const { block, transaction: ethTransaction, logIndex } = event;
+  const block = event.block;
+  const ethTransaction = event.transaction;
+  const logIndex = event.logIndex;
+
   const id = generateTransactionId(ethTransaction.hash.toHexString(), logIndex.toString());
   let transaction = Transaction.load(id);
   if (transaction == null) {

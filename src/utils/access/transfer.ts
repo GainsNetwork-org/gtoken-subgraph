@@ -5,18 +5,25 @@ export function generateTransferId(from: Account, to: Account, transaction: Tran
   return from.id + '-' + to.id + '-' + transaction.id;
 }
 
-export type TransferInput = {
-  from: Account;
-  fromAccountVault: AccountVault;
-  to: Account;
-  toAccountVault: AccountVault;
-  vault: Vault;
-  shares: BigInt;
-  transaction: Transaction;
-};
+export class TransferInput {
+  from!: Account;
+  fromAccountVault!: AccountVault;
+  to!: Account;
+  toAccountVault!: AccountVault;
+  vault!: Vault;
+  shares!: BigInt;
+  transaction!: Transaction;
+}
 
 export function createOrLoadTransfer(data: TransferInput, save: boolean): Transfer {
-  const { from, to, shares, transaction, vault, fromAccountVault, toAccountVault } = data;
+  const from = data.from;
+  const to = data.to;
+  const shares = data.shares;
+  const transaction = data.transaction;
+  const vault = data.vault;
+  const fromAccountVault = data.fromAccountVault;
+  const toAccountVault = data.toAccountVault;
+
   const id = generateTransferId(from, to, transaction);
   let transfer = Transfer.load(id);
   if (transfer == null) {

@@ -113,9 +113,9 @@ type Vault @entity {
   "Asset decimals"
   assetDecimals: Int!
   "Block number of last update"
-  lastUpdateBlock: BigInt!
+  lastUpdateBlock: Int!
   "Timestamp of last update"
-  lastUpdateTimestamp: BigInt!
+  lastUpdateTimestamp: Int!
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
   "Withdraws from vault"

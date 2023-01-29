@@ -5,17 +5,23 @@ export function generateWithdrawId(account: Account, transaction: Transaction): 
   return account.id + '-' + transaction.hash.toHexString();
 }
 
-export type WithdrawInput = {
-  account: Account;
-  vault: Vault;
-  accountVault: AccountVault;
-  assets: BigInt;
-  shares: BigInt;
-  transaction: Transaction;
-};
+export class WithdrawInput {
+  account!: Account;
+  vault!: Vault;
+  accountVault!: AccountVault;
+  assets!: BigInt;
+  shares!: BigInt;
+  transaction!: Transaction;
+}
 
 export function createOrLoadWithdraw(data: WithdrawInput, save: boolean): Withdraw {
-  const { account, assets, shares, transaction, vault, accountVault } = data;
+  const account = data.account;
+  const assets = data.assets;
+  const shares = data.shares;
+  const transaction = data.transaction;
+  const vault = data.vault;
+  const accountVault = data.accountVault;
+
   const id = generateWithdrawId(account, transaction);
   let withdraw = Withdraw.load(id);
   if (withdraw == null) {
