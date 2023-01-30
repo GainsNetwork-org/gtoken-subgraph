@@ -1,8 +1,6 @@
 import { BigDecimal, BigInt, dataSource } from '@graphprotocol/graph-ts';
 import { POLYGON, MUMBAI, ARBITRUM, POLYGON_ADDRESSES, MUMBAI_ADDRESSES, ARBITRUM_ADDRESSES } from './constants';
 
-export * from './access';
-
 export function exponentToBigDecimal(decimals: i32): BigDecimal {
   let bd = BigDecimal.fromString('1');
   for (let i = 0; i < decimals; i++) {
@@ -27,3 +25,5 @@ export function getVaultAddress(): string {
   }
   return '';
 }
+
+export * from './access';

@@ -23,8 +23,13 @@ type AccountVault @entity {
   "Locked Deposits"
   lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "accountVault")
 
+  # Fields below are transaction based and are not accurate current balances
+
   "Locked deposit transactions"
   lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "accountVault")
+
+  "Total deposits unlocked"
+  depositsUnlocked: [DepositUnlocked!]! @derivedFrom(field: "accountVault")
 
   "Deposits"
   deposits: [Deposit!]! @derivedFrom(field: "accountVault")

@@ -6,7 +6,7 @@ import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 import { createOrLoadLockedDeposit, createOrLoadLockedDepositTransaction } from '../../utils/access/lockedDeposit';
 import { GTOKEN_DECIMALS } from '../../utils/constants';
 
-export function handleLockedDeposit(event: DepositLocked): void {
+export function handleDepositLocked(event: DepositLocked): void {
   const depositId = event.params.depositId;
   const recipient = event.params.owner;
   const lockedDepositEvent = event.params.d;

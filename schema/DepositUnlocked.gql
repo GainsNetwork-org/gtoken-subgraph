@@ -1,0 +1,19 @@
+type DepositUnlocked @entity {
+  "Generated ID - deposit ID-transaction ID"
+  id: ID!
+
+  "Vault"
+  vault: Vault!
+
+  "Account making transaction"
+  account: Account!
+
+  "Account vault"
+  accountVault: AccountVault!
+
+  "Locked deposit"
+  lockedDeposit: LockedDeposit!
+
+  "Transaction"
+  transaction: Transaction!
+}

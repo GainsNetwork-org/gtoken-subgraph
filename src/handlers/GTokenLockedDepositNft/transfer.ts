@@ -43,9 +43,6 @@ export function handleTransfer(event: Transfer): void {
   if (to !== ZERO_ADDRESS) {
     toAccountVault.totalAssetsDeposited = toAccountVault.totalAssetsDeposited.plus(assetValue);
     toAccountVault.sharesLocked.plus(lockedDeposit.shares);
-  } else {
-    // Burned
-    lockedDeposit.active = false;
   }
 
   lockedDeposit.save();

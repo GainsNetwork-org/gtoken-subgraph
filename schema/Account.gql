@@ -14,8 +14,13 @@ type Account @entity {
   "Total locked deposits"
   lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "account")
 
+  # Fields below are transaction based and are not accurate current balances
+
   "Total locked deposit transactions"
   lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "account")
+
+  "Total deposits unlocked"
+  depositsUnlocked: [DepositUnlocked!]! @derivedFrom(field: "account")
 
   "Total shares transferred to"
   sharesReceived: [Transfer!]! @derivedFrom(field: "to")

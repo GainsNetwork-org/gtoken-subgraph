@@ -29,6 +29,7 @@ export function createOrLoadLockedDepositTransaction(
   if (lockedDepositTransaction == null) {
     lockedDepositTransaction = new LockedDepositTransaction(id);
     lockedDepositTransaction.transaction = transaction.id;
+    lockedDepositTransaction.lockedDeposit = lockedDeposit.id;
     if (save) {
       lockedDepositTransaction.save();
     }

@@ -7,10 +7,18 @@ type Account @entity {
   deposits: [Deposit!]! @derivedFrom(field: "account")
   "Total assets withdrawn"
   Withdraws: [Withdraw!]! @derivedFrom(field: "account")
+  "Total locked deposits"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "account")
+  "Total locked deposit transactions"
+  lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "account")
   "Total shares transferred to"
   sharesReceived: [Transfer!]! @derivedFrom(field: "to")
   "Total shares transferred from"
   sharesSent: [Transfer!]! @derivedFrom(field: "from")
+  "Total locked deposits transferred to"
+  lockedDepositsReceived: [LockedDepositTransfer!]! @derivedFrom(field: "to")
+  "Total locked deposits transferred from"
+  lockedDepositsSent: [LockedDepositTransfer!]! @derivedFrom(field: "from")
 }
 
 type AccountVault @entity {
@@ -30,6 +38,8 @@ type AccountVault @entity {
   totalAssetsWithdrawn: BigDecimal!
   "Locked Deposits"
   lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "accountVault")
+  "Locked deposit transactions"
+  lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "accountVault")
   "Deposits"
   deposits: [Deposit!]! @derivedFrom(field: "accountVault")
   "Withdraws"
@@ -38,6 +48,10 @@ type AccountVault @entity {
   sharesReceived: [Transfer!]! @derivedFrom(field: "toAccountVault")
   "Total shares transferred from"
   sharesSent: [Transfer!]! @derivedFrom(field: "fromAccountVault")
+  "Total locked deposits transferred to"
+  lockedDepositsReceived: [LockedDepositTransfer!]! @derivedFrom(field: "toAccountVault")
+  "Total locked deposits transferred from"
+  lockedDepositsSent: [LockedDepositTransfer!]! @derivedFrom(field: "fromAccountVault")
 }
 
 type Deposit @entity {
@@ -53,6 +67,21 @@ type Deposit @entity {
   assets: BigDecimal!
   "Number of new shares minted"
   shares: BigDecimal!
+  "Transaction"
+  transaction: Transaction!
+}
+
+type DepositUnlocked @entity {
+  "Generated ID - deposit ID-transaction ID"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account making transaction"
+  account: Account!
+  "Account vault"
+  accountVault: AccountVault!
+  "Locked deposit"
+  lockedDeposit: LockedDeposit!
   "Transaction"
   transaction: Transaction!
 }
@@ -179,12 +208,18 @@ type Vault @entity {
   lastUpdateTimestamp: Int!
   "Locked deposits in vault"
   lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "vault")
+  "Locked deposit transactions"
+  lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "vault")
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
   "Withdraws from vault"
   withdraws: [Withdraw!]! @derivedFrom(field: "vault")
   "Transfers of vault shares"
   transfers: [Transfer!]! @derivedFrom(field: "vault")
+  "Total locked deposits transferred to"
+  lockedDepositsReceived: [LockedDepositTransfer!]! @derivedFrom(field: "vault")
+  "Total locked deposits transferred from"
+  lockedDepositsSent: [LockedDepositTransfer!]! @derivedFrom(field: "vault")
 }
 
 type Withdraw @entity {

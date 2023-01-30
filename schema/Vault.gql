@@ -23,6 +23,9 @@ type Vault @entity {
   "Locked deposit transactions"
   lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "vault")
 
+  "Deposits unlocked"
+  depositsUnlocked: [DepositUnlocked!]! @derivedFrom(field: "vault")
+
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
 
