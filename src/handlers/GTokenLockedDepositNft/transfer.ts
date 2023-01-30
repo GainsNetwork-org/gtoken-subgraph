@@ -8,7 +8,7 @@ import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault
 import { ZERO_ADDRESS } from '../../utils/constants';
 
 export function handleTransfer(event: Transfer): void {
-  log.info('[handleTransferNft] From {}, to {}, amount {}, txHash {}', [
+  log.info('[handleTransferNft] From {}, to {}, txHash {}', [
     event.params.from.toHexString(),
     event.params.to.toHexString(),
     event.transaction.hash.toHexString(),
