@@ -16,10 +16,17 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Account
+        - AccountVault
         - Deposit
-        - Withdraw
-        - Transfer
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
         - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
       abis:
         - name: GToken
           file: ./abis/GToken.json
@@ -32,5 +39,41 @@ dataSources:
           handler: handleWithdraw
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
+        - event: DepositLocked(indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositLocked
+        - event: DepositUnlocked(indexed address,indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositUnlocked
       file: ./src/handlers/GToken/index.ts
+  - kind: ethereum
+    name: GTokenLockedDepositNft
+    network: '{{network}}'
+    source:
+      address: '{{gTokenLockedDepositNft.address}}'
+      abi: GTokenLockedDepositNft
+      startBlock: {{gTokenLockedDepositNft.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVault
+        - Deposit
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
+        - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+        - name: GTokenLockedDepositNft
+          file: ./abis/GTokenLockedDepositNft.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/handlers/GTokenLockedDepositNft/index.ts
       
