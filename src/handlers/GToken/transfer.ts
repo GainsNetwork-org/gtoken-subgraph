@@ -6,6 +6,9 @@ import { createOrLoadTransfer } from '../../utils/access/transfer';
 import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
 import { GTOKEN_DECIMALS, GTOKEN_DECIMALS_BD, ZERO_ADDRESS } from '../../utils/constants';
 
+/**
+ * @dev Transfer event handler - only deal with transfers not handle by other contract methods
+ */
 export function handleTransfer(event: Transfer): void {
   log.info('[handleTransfer] From {}, to {}, amount {}, txHash {}', [
     event.params.from.toHexString(),
@@ -39,12 +42,10 @@ export function handleTransfer(event: Transfer): void {
 
   const assetAmountTruncated = transfer.assetValue;
 
-  if (from !== ZERO_ADDRESS) {
+  // Only handle transfers between non zero, non vault addresses
+  if (from !== ZERO_ADDRESS && to !== ZERO_ADDRESS && from !== vault.id && to !== vault.id) {
     fromAccountVault.totalAssetsWithdrawn = fromAccountVault.totalAssetsWithdrawn.plus(assetAmountTruncated);
     fromAccountVault.sharesBalance.minus(sharesAmount);
-  }
-
-  if (to !== ZERO_ADDRESS) {
     toAccountVault.totalAssetsDeposited = toAccountVault.totalAssetsDeposited.plus(assetAmountTruncated);
     toAccountVault.sharesBalance.plus(sharesAmount);
   }

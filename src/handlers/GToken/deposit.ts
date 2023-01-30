@@ -23,5 +23,9 @@ export function handleDeposit(event: Deposit): void {
   const vault = createOrLoadVault(event.address.toHexString(), true);
   const account = createOrLoadAccount(recipient.toHexString(), true);
   const accountVault = createOrLoadAccountVault(account, vault, true);
-  createOrLoadDeposit({ account, assets, shares, transaction, vault, accountVault }, true);
+  const deposit = createOrLoadDeposit({ account, assets, shares, transaction, vault, accountVault }, true);
+
+  accountVault.sharesBalance = accountVault.sharesBalance.plus(deposit.shares);
+  accountVault.totalAssetsDeposited = accountVault.totalAssetsDeposited.plus(deposit.assets);
+  accountVault.save();
 }

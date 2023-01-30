@@ -17,6 +17,9 @@ type Vault @entity {
   "Timestamp of last update"
   lastUpdateTimestamp: Int!
 
+  "Locked deposits in vault"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "vault")
+
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
 

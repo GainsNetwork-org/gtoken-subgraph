@@ -30,5 +30,12 @@ export function handleWithdraw(event: Withdraw): void {
     .truncate(vault.assetDecimals);
 
   const sharesAmount = shares.toBigDecimal().div(GTOKEN_DECIMALS_BD).truncate(GTOKEN_DECIMALS);
-  createOrLoadWithdraw({ account, assets: assetsAmount, shares: sharesAmount, transaction, accountVault, vault }, true);
+  const withdraw = createOrLoadWithdraw(
+    { account, assets: assetsAmount, shares: sharesAmount, transaction, accountVault, vault },
+    true
+  );
+
+  accountVault.sharesBalance = accountVault.sharesBalance.minus(withdraw.shares);
+  accountVault.totalAssetsDeposited = accountVault.totalAssetsDeposited.minus(withdraw.assets);
+  accountVault.save();
 }

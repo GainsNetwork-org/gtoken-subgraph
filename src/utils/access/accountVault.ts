@@ -14,6 +14,7 @@ export function createOrLoadAccountVault(account: Account, vault: Vault, save: b
     accountVault.vault = vault.id;
     accountVault.account = account.id;
     accountVault.sharesBalance = ZERO_BD;
+    accountVault.sharesLocked = ZERO_BD;
     accountVault.totalAssetsDeposited = ZERO_BD;
     accountVault.totalAssetsWithdrawn = ZERO_BD;
 

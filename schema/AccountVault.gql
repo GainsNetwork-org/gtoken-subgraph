@@ -8,7 +8,7 @@ type AccountVault @entity {
   "Account"
   account: Account!
 
-  "Share balance"
+  "Share balance (unlocked)"
   sharesBalance: BigDecimal!
 
   "Shares locked"
