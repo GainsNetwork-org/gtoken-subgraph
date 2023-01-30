@@ -11,9 +11,21 @@ type Account @entity {
   "Total assets withdrawn"
   Withdraws: [Withdraw!]! @derivedFrom(field: "account")
 
+  "Total locked deposits"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "account")
+
+  "Total locked deposit transactions"
+  lockedDepositTransactions: [LockedDepositTransaction!]! @derivedFrom(field: "account")
+
   "Total shares transferred to"
   sharesReceived: [Transfer!]! @derivedFrom(field: "to")
 
   "Total shares transferred from"
   sharesSent: [Transfer!]! @derivedFrom(field: "from")
+
+  "Total locked deposits transferred to"
+  lockedDepositsReceived: [LockedDepositTransfer!]! @derivedFrom(field: "to")
+
+  "Total locked deposits transferred from"
+  lockedDepositsSent: [LockedDepositTransfer!]! @derivedFrom(field: "from")
 }
