@@ -7,6 +7,11 @@ import { createOrLoadLockedDepositTransfer } from '../../utils/access/lockedDepo
 import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
 import { ZERO_ADDRESS } from '../../utils/constants';
 
+// DepositLocked and DepositUnlocked will be handled separately
+function shouldProcess(from: string, to: string): boolean {
+  return from != ZERO_ADDRESS && to != ZERO_ADDRESS;
+}
+
 export function handleTransfer(event: Transfer): void {
   log.info('[handleTransferNft] From {}, to {}, txHash {}', [
     event.params.from.toHexString(),
@@ -15,6 +20,15 @@ export function handleTransfer(event: Transfer): void {
   ]);
 
   const transaction = createOrLoadTransaction(event, 'LockedDepositTransfer', true);
+
+  if (!shouldProcess(event.params.from.toHexString(), event.params.to.toHexString())) {
+    log.info('[handleTransferNft] Skipping transfer from {} to {}', [
+      event.params.from.toHexString(),
+      event.params.to.toHexString(),
+    ]);
+    return;
+  }
+
   let vault = createOrLoadVault(getVaultAddress(), false);
   vault = updateVaultForBlock(vault, event.block, true);
   const from = event.params.from.toHexString();
@@ -35,12 +49,14 @@ export function handleTransfer(event: Transfer): void {
   const assetValue = vault.shareToAssets
     .times(lockedDeposit.assetsDeposited.plus(lockedDeposit.assetsDiscount))
     .truncate(vault.assetDecimals);
-  if (from !== ZERO_ADDRESS && from !== event.address.toHexString()) {
+  log.info('Checking from addresses {} and {}', [from, event.address.toHexString()]);
+  if (from != ZERO_ADDRESS) {
     fromAccountVault.totalAssetsWithdrawn = fromAccountVault.totalAssetsWithdrawn.plus(assetValue);
     fromAccountVault.sharesLocked.minus(lockedDeposit.shares);
   }
 
-  if (to !== ZERO_ADDRESS) {
+  log.info('Checking to addresses {} and {}', [to, event.address.toHexString()]);
+  if (to != ZERO_ADDRESS) {
     toAccountVault.totalAssetsDeposited = toAccountVault.totalAssetsDeposited.plus(assetValue);
     toAccountVault.sharesLocked.plus(lockedDeposit.shares);
   }
@@ -49,4 +65,5 @@ export function handleTransfer(event: Transfer): void {
   transfer.save();
   fromAccountVault.save();
   toAccountVault.save();
+  log.info('Transfer complete', []);
 }

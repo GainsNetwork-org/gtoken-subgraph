@@ -1,4 +1,4 @@
-import { BigDecimal } from '@graphprotocol/graph-ts';
+import { BigDecimal, log } from '@graphprotocol/graph-ts';
 import { Account, AccountVault, Vault } from '../../types/schema';
 import { ZERO_BD } from '../constants';
 
@@ -7,6 +7,7 @@ export function generateAccountVaultId(account: Account, vault: Vault): string {
 }
 
 export function createOrLoadAccountVault(account: Account, vault: Vault, save: boolean): AccountVault {
+  log.info('[createOrLoadAccountVault] account {}, vault {}', [account.id, vault.id]);
   const id = generateAccountVaultId(account, vault);
   let accountVault = AccountVault.load(id);
   if (accountVault == null) {

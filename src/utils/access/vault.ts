@@ -1,13 +1,15 @@
-import { Address, BigDecimal, BigInt, ethereum } from '@graphprotocol/graph-ts';
+import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts';
 import { exponentToBigDecimal } from '..';
 import { GToken } from '../../types/GToken/GToken';
 import { Vault } from '../../types/schema';
 import { ZERO_BD } from '../constants';
 
 export function createOrLoadVault(id: string, save: boolean): Vault {
+  log.info('[createOrLoadVault] id {}', [id]);
   let vault = Vault.load(id);
   if (vault == null) {
     vault = new Vault(id);
+    log.info('[createOrLoadVault] vault {}', [vault.id]);
     const vaultContract = GToken.bind(Address.fromString(vault.id));
     vault.assetDecimals = vaultContract.decimals();
     vault.lastUpdateBlock = 0;
@@ -23,6 +25,8 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
 }
 
 export function updateVaultForBlock(vault: Vault, block: ethereum.Block, save: boolean): Vault {
+  log.info('[updateVaultForBlock] vault {}, block {}', [vault.id, block.number.toString()]);
+
   // Only update once per block
   if (block.number.toI32() <= vault.lastUpdateBlock) {
     return vault;

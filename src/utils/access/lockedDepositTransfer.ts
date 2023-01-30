@@ -1,3 +1,4 @@
+import { log } from '@graphprotocol/graph-ts';
 import { Account, Transaction, LockedDepositTransfer } from '../../types/schema';
 
 export function generateLockedDepositTransferId(from: Account, to: Account, transaction: Transaction): string {
@@ -10,6 +11,7 @@ export function createOrLoadLockedDepositTransfer(
   transaction: Transaction,
   save: boolean
 ): LockedDepositTransfer {
+  log.info('[createOrLoadLockedDepositTransfer] from {}, to {}, transaction {}', [from.id, to.id, transaction.id]);
   const id = generateLockedDepositTransferId(from, to, transaction);
   let transfer = LockedDepositTransfer.load(id);
   if (transfer == null) {
