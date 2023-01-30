@@ -1,6 +1,8 @@
 type Account @entity {
   "Address"
   id: ID!
+  "Vault positions"
+  accountVaults: [AccountVault!]! @derivedFrom(field: "account")
   "Total assets deposited"
   deposits: [Deposit!]! @derivedFrom(field: "account")
   "Total assets withdrawn"
@@ -20,10 +22,14 @@ type AccountVault @entity {
   account: Account!
   "Share balance"
   sharesBalance: BigDecimal!
+  "Shares locked"
+  sharesLocked: BigDecimal!
   "Total assets deposited"
   totalAssetsDeposited: BigDecimal!
   "Total assets withdrawn"
   totalAssetsWithdrawn: BigDecimal!
+  "Locked Deposits"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "accountVault")
   "Deposits"
   deposits: [Deposit!]! @derivedFrom(field: "accountVault")
   "Withdraws"
@@ -47,6 +53,29 @@ type Deposit @entity {
   assets: BigDecimal!
   "Number of new shares minted"
   shares: BigDecimal!
+  "Transaction"
+  transaction: Transaction!
+}
+
+type LockedDeposit @entity {
+  "Locked deposit ID"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account owning locked deposit"
+  account: Account!
+  "Account vault"
+  accountVault: AccountVault!
+  "Number of assets deposited"
+  assetsDeposited: BigDecimal!
+  "Number of assets discounted"
+  assetsDiscount: BigDecimal!
+  "Discount rate"
+  discountRate: BigDecimal!
+  "Number of new shares minted"
+  shares: BigDecimal!
+  "Lock duration"
+  lockDuration: Int!
   "Transaction"
   transaction: Transaction!
 }

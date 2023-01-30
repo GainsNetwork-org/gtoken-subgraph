@@ -1,4 +1,4 @@
-type Deposit @entity {
+type LockedDeposit @entity {
   "Locked deposit ID"
   id: ID!
 
