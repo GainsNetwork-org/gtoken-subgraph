@@ -1,0 +1,31 @@
+type Deposit @entity {
+  "Locked deposit ID"
+  id: ID!
+
+  "Vault"
+  vault: Vault!
+
+  "Account owning locked deposit"
+  account: Account!
+
+  "Account vault"
+  accountVault: AccountVault!
+
+  "Number of assets deposited"
+  assetsDeposited: BigDecimal!
+
+  "Number of assets discounted"
+  assetsDiscount: BigDecimal!
+
+  "Discount rate"
+  discountRate: BigDecimal!
+
+  "Number of new shares minted"
+  shares: BigDecimal!
+
+  "Lock duration"
+  lockDuration: Int!
+
+  "Transaction"
+  transaction: Transaction!
+}

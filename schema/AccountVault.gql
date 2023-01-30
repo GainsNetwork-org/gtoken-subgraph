@@ -11,11 +11,17 @@ type AccountVault @entity {
   "Share balance"
   sharesBalance: BigDecimal!
 
+  "Shares locked"
+  sharesLocked: BigDecimal!
+
   "Total assets deposited"
   totalAssetsDeposited: BigDecimal!
 
   "Total assets withdrawn"
   totalAssetsWithdrawn: BigDecimal!
+
+  "Locked Deposits"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "accountVault")
 
   "Deposits"
   deposits: [Deposit!]! @derivedFrom(field: "accountVault")

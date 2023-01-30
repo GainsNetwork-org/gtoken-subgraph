@@ -2,6 +2,9 @@ type Account @entity {
   "Address"
   id: ID!
 
+  "Vault positions":
+  accountVaults: [AccountVault!]! @derivedFrom(field: "account")
+
   "Total assets deposited"
   deposits: [Deposit!]! @derivedFrom(field: "account")
 
