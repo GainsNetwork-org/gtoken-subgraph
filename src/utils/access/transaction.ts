@@ -26,6 +26,9 @@ export function createOrLoadTransaction(event: ethereum.Event, action: string, s
     transaction.blockGasLimit = block.gasLimit;
     transaction.blockNumber = block.number;
     transaction.event = action;
+    if (save) {
+      transaction.save();
+    }
   }
   return transaction as Transaction;
 }
