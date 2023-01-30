@@ -27,18 +27,12 @@ export function handleTransfer(event: Transfer): void {
   const to = event.params.to.toHexString();
   const toAccount = createOrLoadAccount(to, true);
   const toAccountVault = createOrLoadAccountVault(toAccount, vault, true);
-  const transfer = createOrLoadTransfer(
-    {
-      from: fromAccount,
-      to: toAccount,
-      fromAccountVault,
-      toAccountVault,
-      vault,
-      transaction,
-      shares: sharesAmount,
-    },
-    true
-  );
+  const transfer = createOrLoadTransfer(fromAccount, toAccount, transaction, false);
+  transfer.vault = vault.id;
+  transfer.fromAccountVault = fromAccountVault.id;
+  transfer.toAccountVault = toAccountVault.id;
+  transfer.shares = sharesAmount;
+  transfer.assetValue = vault.shareToAssets.times(sharesAmount).truncate(vault.assetDecimals);
 
   const assetAmountTruncated = transfer.assetValue;
 
@@ -50,6 +44,7 @@ export function handleTransfer(event: Transfer): void {
     toAccountVault.sharesBalance.plus(sharesAmount);
   }
 
+  transfer.save();
   fromAccountVault.save();
   toAccountVault.save();
 }

@@ -20,7 +20,7 @@ type AccountVault @entity {
   vault: Vault!
   "Account"
   account: Account!
-  "Share balance"
+  "Share balance (unlocked)"
   sharesBalance: BigDecimal!
   "Shares locked"
   sharesLocked: BigDecimal!
@@ -57,6 +57,21 @@ type Deposit @entity {
   transaction: Transaction!
 }
 
+type LockedDepositTransaction @entity {
+  "Generated ID - deposit ID-transaction ID"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account making transaction"
+  account: Account!
+  "Account vault"
+  accountVault: AccountVault!
+  "Locked deposit"
+  lockedDeposit: LockedDeposit!
+  "Transaction"
+  transaction: Transaction!
+}
+
 type LockedDeposit @entity {
   "Locked deposit ID"
   id: ID!
@@ -70,12 +85,31 @@ type LockedDeposit @entity {
   assetsDeposited: BigDecimal!
   "Number of assets discounted"
   assetsDiscount: BigDecimal!
-  "Discount rate"
-  discountRate: BigDecimal!
+  "Discount percentage"
+  discountP: BigDecimal!
   "Number of new shares minted"
   shares: BigDecimal!
   "Lock duration"
   lockDuration: Int!
+  "Still active"
+  active: Boolean!
+}
+
+type LockedDepositTransfer @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Sender"
+  from: Account!
+  "From account vault"
+  fromAccountVault: AccountVault!
+  "Receiver"
+  to: Account!
+  "To account vault"
+  toAccountVault: AccountVault!
+  "Locked deposit"
+  lockedDeposit: LockedDeposit!
   "Transaction"
   transaction: Transaction!
 }
@@ -143,6 +177,8 @@ type Vault @entity {
   lastUpdateBlock: Int!
   "Timestamp of last update"
   lastUpdateTimestamp: Int!
+  "Locked deposits in vault"
+  lockedDeposits: [LockedDeposit!]! @derivedFrom(field: "vault")
   "Deposits to vault"
   deposits: [Deposit!]! @derivedFrom(field: "vault")
   "Withdraws from vault"

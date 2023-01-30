@@ -3,5 +3,9 @@
   "gToken": {
     "address": "0xd85E038593d7A098614721EaE955EC2022B9B91B",
     "startBlock": 49275523
+  },
+  "gTokenLockedDepositNft": {
+    "address": "0x673cf5AB7b44Caac43C80dE5b99A37Ed5B3E4Cc6",
+    "startBlock": 49275523
   }
 }

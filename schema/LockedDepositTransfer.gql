@@ -1,0 +1,25 @@
+type LockedDepositTransfer @entity {
+  "Generated ID - transaction-log"
+  id: ID!
+
+  "Vault"
+  vault: Vault!
+
+  "Sender"
+  from: Account!
+
+  "From account vault"
+  fromAccountVault: AccountVault!
+
+  "Receiver"
+  to: Account!
+
+  "To account vault"
+  toAccountVault: AccountVault!
+
+  "Locked deposit"
+  lockedDeposit: LockedDeposit!
+
+  "Transaction"
+  transaction: Transaction!
+}
