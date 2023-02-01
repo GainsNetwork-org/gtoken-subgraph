@@ -9,7 +9,7 @@ export const ZERO_BD = BigDecimal.fromString('0');
 
 export const POLYGON = 'matic';
 export const MUMBAI = 'mumbai';
-export const ARBITRUM = 'arbitrum';
+export const ARBITRUM = 'arbitrum-one';
 
 class NetworkAddresses {
   gToken!: string;
