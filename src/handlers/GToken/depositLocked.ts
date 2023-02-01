@@ -1,7 +1,7 @@
 import { BigDecimal, log } from '@graphprotocol/graph-ts';
 import { DepositLocked } from '../../types/GToken/GToken';
 import { createOrLoadAccount, createOrLoadTransaction, toDecimal } from '../../utils';
-import { createOrLoadVault } from '../../utils/access/vault';
+import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
 import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 import { createOrLoadLockedDeposit, createOrLoadLockedDepositTransaction } from '../../utils/access/lockedDeposit';
 import { GTOKEN_DECIMALS } from '../../utils/constants';
@@ -17,7 +17,8 @@ export function handleDepositLocked(event: DepositLocked): void {
   ]);
 
   const transaction = createOrLoadTransaction(event, 'LockedDeposit', true);
-  const vault = createOrLoadVault(event.address.toHexString(), true);
+  let vault = createOrLoadVault(event.address.toHexString(), false);
+  vault = updateVaultForBlock(vault, event.block, true);
   const account = createOrLoadAccount(recipient.toHexString(), true);
   const accountVault = createOrLoadAccountVault(account, vault, true);
   const lockedDeposit = createOrLoadLockedDeposit(depositId.toI32(), false);
