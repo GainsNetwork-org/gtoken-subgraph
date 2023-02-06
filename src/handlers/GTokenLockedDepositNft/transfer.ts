@@ -51,14 +51,15 @@ export function handleTransfer(event: Transfer): void {
     .truncate(vault.assetDecimals);
   log.info('Checking from addresses {} and {}', [from, event.address.toHexString()]);
   if (from != ZERO_ADDRESS) {
-    fromAccountVault.totalAssetsWithdrawn = fromAccountVault.totalAssetsWithdrawn.plus(assetValue);
-    fromAccountVault.sharesLocked.minus(lockedDeposit.shares);
+    fromAccountVault.totalAssetsWithdrawn = fromAccountVault.totalAssetsWithdrawn =
+      fromAccountVault.totalAssetsWithdrawn.plus(assetValue);
+    fromAccountVault.sharesLocked = fromAccountVault.sharesLocked.minus(lockedDeposit.shares);
   }
 
   log.info('Checking to addresses {} and {}', [to, event.address.toHexString()]);
   if (to != ZERO_ADDRESS) {
     toAccountVault.totalAssetsDeposited = toAccountVault.totalAssetsDeposited.plus(assetValue);
-    toAccountVault.sharesLocked.plus(lockedDeposit.shares);
+    toAccountVault.sharesLocked = toAccountVault.sharesLocked.plus(lockedDeposit.shares);
   }
 
   lockedDeposit.save();

@@ -37,6 +37,6 @@ export function handleWithdraw(event: Withdraw): void {
   );
 
   accountVault.sharesBalance = accountVault.sharesBalance.minus(withdraw.shares);
-  accountVault.totalAssetsDeposited = accountVault.totalAssetsDeposited.minus(withdraw.assets);
+  accountVault.totalAssetsWithdrawn = accountVault.totalAssetsWithdrawn.plus(withdraw.assets);
   accountVault.save();
 }
