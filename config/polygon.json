@@ -20,7 +20,7 @@
       "startBlock": 52455889
     },
     "gTokenLockedDepositNft": {
-      "address": "0xFF84e736A15F80E7E104e153d7f7D6c9bd6fE822",
+      "address": "0x4329c6364139D6D2b1C33E22983e568641E5261E",
       "startBlock": 52455889
     }
   },
@@ -30,7 +30,7 @@
       "startBlock": 52455889
     },
     "gTokenLockedDepositNft": {
-      "address": "0xF07f4507DD6A057Aea509cB9b218B7C4D1894473",
+      "address": "0xC4A8aB1187E7Af96D485D331d5432798c80D64CF",
       "startBlock": 52455889
     }
   }
