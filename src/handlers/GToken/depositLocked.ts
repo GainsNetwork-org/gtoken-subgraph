@@ -4,7 +4,6 @@ import { createOrLoadAccount, createOrLoadTransaction, toDecimal } from '../../u
 import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
 import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 import { createOrLoadLockedDeposit, createOrLoadLockedDepositTransaction } from '../../utils/access/lockedDeposit';
-import { GTOKEN_DECIMALS } from '../../utils/constants';
 
 export function handleDepositLocked(event: DepositLocked): void {
   const depositId = event.params.depositId;
@@ -30,7 +29,7 @@ export function handleDepositLocked(event: DepositLocked): void {
   lockedDeposit.discountP = lockedDeposit.assetsDiscount
     .div(lockedDeposit.assetsDeposited)
     .times(BigDecimal.fromString('100'));
-  lockedDeposit.shares = toDecimal(lockedDepositEvent.shares, GTOKEN_DECIMALS);
+  lockedDeposit.shares = toDecimal(lockedDepositEvent.shares, vault.shareDecimals);
   lockedDeposit.lockDuration = lockedDepositEvent.lockDuration.toI32();
   lockedDeposit.active = true;
 
