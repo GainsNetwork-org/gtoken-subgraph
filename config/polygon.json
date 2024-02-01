@@ -1,5 +1,9 @@
 {
   "network": "matic",
+  "graft": {
+    "base": "QmTNbm2TGfoKx62gJxfthtv2qH5Q8eRHpjm6WriC5ZfKmS",
+    "block": 52455889
+  },
   "gDAI": {
     "gToken": {
       "address": "0x91993f2101cc758D0dEB7279d41e880F7dEFe827",

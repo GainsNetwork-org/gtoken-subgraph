@@ -1,5 +1,9 @@
 {
   "network": "arbitrum-one",
+  "graft": {
+    "base": "QmX75C8NmjbxZU7Mambhi3WFMcv4moJSpFtgnAgDJen4dz",
+    "block": 171593632
+  },
   "gDAI": {
     "gToken": {
       "address": "0xd85E038593d7A098614721EaE955EC2022B9B91B",
