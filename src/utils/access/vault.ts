@@ -28,7 +28,7 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     // If error, default to what's in constants - DAI vault for example was never updated with collateralconfig
     const tryResponse = GToken.bind(Address.fromString(vault.id)).try_collateralConfig();
     if (!tryResponse.reverted) {
-      vault.shareDecimals = BigInt.fromI64(tryResponse.value.getPrecision().toU64());
+      vault.shareDecimals = BigInt.fromI64(tryResponse.value.getPrecision().toU64().toString().length - 1);
     } else {
       vault.shareDecimals = BigInt.fromI64(GTOKEN_DECIMALS);
     }
