@@ -2,7 +2,7 @@ import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph
 import { exponentToBigDecimal } from '..';
 import { GToken } from '../../types/GToken/GToken';
 import { Vault } from '../../types/schema';
-import { ZERO_BD } from '../constants';
+import { GTOKEN_DECIMALS, ZERO_BD } from '../constants';
 
 export function createOrLoadVault(id: string, save: boolean): Vault {
   log.info('[createOrLoadVault] id {}', [id]);
@@ -24,9 +24,15 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
   }
   // Handle the case where the vault entity was created before the decimals were set
   else if (vault.shareDecimals === null || vault.shareDecimals!.toI32() == 0) {
-    vault.shareDecimals = BigInt.fromI32(
-      GToken.bind(Address.fromString(vault.id)).collateralConfig().getPrecision().toU32()
-    );
+    // Try to read collateralconfig
+    // If error, default to what's in constants - DAI vault for example was never updated with collateralconfig
+    const tryResponse = GToken.bind(Address.fromString(vault.id)).try_collateralConfig();
+    if (!tryResponse.reverted) {
+      vault.shareDecimals = BigInt.fromI32(tryResponse.value.getPrecision().toU32());
+    } else {
+      vault.shareDecimals = BigInt.fromI32(GTOKEN_DECIMALS);
+    }
+
     if (save) {
       vault.save();
     }
