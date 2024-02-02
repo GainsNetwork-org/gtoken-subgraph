@@ -207,7 +207,7 @@ type Vault @entity {
   "Asset decimals"
   assetDecimals: Int!
   "Share decimals"
-  shareDecimals: Int
+  shareDecimals: BigInt
   "Block number of last update"
   lastUpdateBlock: Int!
   "Timestamp of last update"

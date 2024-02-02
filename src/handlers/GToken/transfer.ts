@@ -24,8 +24,8 @@ export function handleTransfer(event: Transfer): void {
   let vault = createOrLoadVault(event.address.toHexString(), false);
   const sharesAmount = event.params.value
     .toBigDecimal()
-    .div(exponentToBigDecimal(vault.shareDecimals))
-    .truncate(vault.shareDecimals);
+    .div(exponentToBigDecimal(vault.shareDecimals!.toI32()))
+    .truncate(vault.shareDecimals!.toI32());
   const transaction = createOrLoadTransaction(event, 'Transfer', true);
 
   if (!shouldProcess(event.params.from.toHexString(), event.params.to.toHexString(), event.address.toHexString())) {

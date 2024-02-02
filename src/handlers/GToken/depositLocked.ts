@@ -29,7 +29,7 @@ export function handleDepositLocked(event: DepositLocked): void {
   lockedDeposit.discountP = lockedDeposit.assetsDiscount
     .div(lockedDeposit.assetsDeposited)
     .times(BigDecimal.fromString('100'));
-  lockedDeposit.shares = toDecimal(lockedDepositEvent.shares, vault.shareDecimals);
+  lockedDeposit.shares = toDecimal(lockedDepositEvent.shares, vault.shareDecimals!.toI32());
   lockedDeposit.lockDuration = lockedDepositEvent.lockDuration.toI32();
   lockedDeposit.active = true;
 

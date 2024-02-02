@@ -30,7 +30,10 @@ export function createOrLoadDeposit(data: DepositInput, save: boolean): Deposit 
     deposit.vault = vault.id;
     deposit.accountVault = accountVault.id;
     deposit.assets = assets.toBigDecimal().div(exponentToBigDecimal(vault.assetDecimals)).truncate(vault.assetDecimals);
-    deposit.shares = shares.toBigDecimal().div(exponentToBigDecimal(vault.shareDecimals)).truncate(vault.shareDecimals);
+    deposit.shares = shares
+      .toBigDecimal()
+      .div(exponentToBigDecimal(vault.shareDecimals!.toI32()))
+      .truncate(vault.shareDecimals!.toI32());
     deposit.transaction = transaction.id;
     if (save) {
       deposit.save();

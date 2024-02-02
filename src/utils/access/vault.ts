@@ -12,7 +12,7 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     log.info('[createOrLoadVault] vault {}', [vault.id]);
     const vaultContract = GToken.bind(Address.fromString(vault.id));
     vault.assetDecimals = vaultContract.decimals();
-    vault.shareDecimals = vaultContract.collateralConfig().getPrecision().toU32();
+    vault.shareDecimals = BigInt.fromI32(vaultContract.collateralConfig().getPrecision().toU32());
     vault.lastUpdateBlock = 0;
     vault.lastUpdateTimestamp = 0;
     vault.epoch = 0;
@@ -23,8 +23,10 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     }
   }
   // Handle the case where the vault entity was created before the decimals were set
-  else if (vault.shareDecimals == 0 || !vault.shareDecimals) {
-    vault.shareDecimals = GToken.bind(Address.fromString(vault.id)).collateralConfig().getPrecision().toU32();
+  else if (vault.shareDecimals === null || vault.shareDecimals!.toI32() == 0) {
+    vault.shareDecimals = BigInt.fromI32(
+      GToken.bind(Address.fromString(vault.id)).collateralConfig().getPrecision().toU32()
+    );
     if (save) {
       vault.save();
     }

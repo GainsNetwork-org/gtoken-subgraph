@@ -31,8 +31,8 @@ export function handleWithdraw(event: Withdraw): void {
 
   const sharesAmount = shares
     .toBigDecimal()
-    .div(exponentToBigDecimal(vault.shareDecimals))
-    .truncate(vault.shareDecimals);
+    .div(exponentToBigDecimal(vault.shareDecimals!.toI32()))
+    .truncate(vault.shareDecimals!.toI32());
   const withdraw = createOrLoadWithdraw(
     { account, assets: assetsAmount, shares: sharesAmount, transaction, accountVault, vault },
     true
