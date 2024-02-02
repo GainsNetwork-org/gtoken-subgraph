@@ -12,7 +12,7 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     log.info('[createOrLoadVault] vault {}', [vault.id]);
     const vaultContract = GToken.bind(Address.fromString(vault.id));
     vault.assetDecimals = vaultContract.decimals();
-    vault.shareDecimals = BigInt.fromI32(vaultContract.collateralConfig().getPrecision().toU32());
+    vault.shareDecimals = BigInt.fromI64(vaultContract.collateralConfig().getPrecision().toU64());
     vault.lastUpdateBlock = 0;
     vault.lastUpdateTimestamp = 0;
     vault.epoch = 0;
@@ -28,9 +28,9 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     // If error, default to what's in constants - DAI vault for example was never updated with collateralconfig
     const tryResponse = GToken.bind(Address.fromString(vault.id)).try_collateralConfig();
     if (!tryResponse.reverted) {
-      vault.shareDecimals = BigInt.fromI32(tryResponse.value.getPrecision().toU32());
+      vault.shareDecimals = BigInt.fromI64(tryResponse.value.getPrecision().toU64());
     } else {
-      vault.shareDecimals = BigInt.fromI32(GTOKEN_DECIMALS);
+      vault.shareDecimals = BigInt.fromI64(GTOKEN_DECIMALS);
     }
 
     if (save) {
