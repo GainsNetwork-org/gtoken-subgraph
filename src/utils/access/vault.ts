@@ -12,7 +12,8 @@ export function createOrLoadVault(id: string, save: boolean): Vault {
     log.info('[createOrLoadVault] vault {}', [vault.id]);
     const vaultContract = GToken.bind(Address.fromString(vault.id));
     vault.assetDecimals = vaultContract.decimals();
-    vault.shareDecimals = BigInt.fromI64(vaultContract.collateralConfig().getPrecision().toU64());
+    // Since time of graft it's safe to assume new vaults will have collateralconfig
+    vault.shareDecimals = BigInt.fromI64(vaultContract.collateralConfig().getPrecision().toU64().toString().length - 1);
     vault.lastUpdateBlock = 0;
     vault.lastUpdateTimestamp = 0;
     vault.epoch = 0;
