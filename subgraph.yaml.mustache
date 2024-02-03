@@ -3,14 +3,19 @@ description: >-
   gToken data
 schema:
   file: ./schema.gql
+features:
+  - grafting
+graft:
+  base: {{graft.base}}
+  block: {{graft.block}}
 dataSources:
   - kind: ethereum
     name: GToken
     network: '{{network}}'
     source:
-      address: '{{gToken.address}}'
+      address: '{{gDAI.gToken.address}}'
       abi: GToken
-      startBlock: {{gToken.startBlock}}
+      startBlock: {{gDAI.gToken.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -48,9 +53,155 @@ dataSources:
     name: GTokenLockedDepositNft
     network: '{{network}}'
     source:
-      address: '{{gTokenLockedDepositNft.address}}'
+      address: '{{gDAI.gTokenLockedDepositNft.address}}'
       abi: GTokenLockedDepositNft
-      startBlock: {{gTokenLockedDepositNft.startBlock}}
+      startBlock: {{gDAI.gTokenLockedDepositNft.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVault
+        - Deposit
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
+        - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+        - name: GTokenLockedDepositNft
+          file: ./abis/GTokenLockedDepositNft.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/handlers/GTokenLockedDepositNft/index.ts
+
+  - kind: ethereum
+    name: gUSDC
+    network: '{{network}}'
+    source:
+      address: '{{gUSDC.gToken.address}}'
+      abi: GToken
+      startBlock: {{gUSDC.gToken.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVault
+        - Deposit
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
+        - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+        - name: GTokenLockedDepositNft
+          file: ./abis/GTokenLockedDepositNft.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleWithdraw
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: DepositLocked(indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositLocked
+        - event: DepositUnlocked(indexed address,indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositUnlocked
+      file: ./src/handlers/GToken/index.ts
+  - kind: ethereum
+    name: gUSDCLockedDepositNft
+    network: '{{network}}'
+    source:
+      address: '{{gUSDC.gTokenLockedDepositNft.address}}'
+      abi: GTokenLockedDepositNft
+      startBlock: {{gUSDC.gTokenLockedDepositNft.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVault
+        - Deposit
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
+        - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+        - name: GTokenLockedDepositNft
+          file: ./abis/GTokenLockedDepositNft.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/handlers/GTokenLockedDepositNft/index.ts
+
+  - kind: ethereum
+    name: gETH
+    network: '{{network}}'
+    source:
+      address: '{{gETH.gToken.address}}'
+      abi: GToken
+      startBlock: {{gETH.gToken.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVault
+        - Deposit
+        - DepositUnlocked
+        - LockedDeposit
+        - LockedDepositTransaction
+        - LockedDepositTransfer
+        - Transaction
+        - Transfer
+        - Vault
+        - Withdraw
+      abis:
+        - name: GToken
+          file: ./abis/GToken.json
+        - name: GTokenLockedDepositNft
+          file: ./abis/GTokenLockedDepositNft.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleWithdraw
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: DepositLocked(indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositLocked
+        - event: DepositUnlocked(indexed address,indexed address,indexed address,uint256,(address,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDepositUnlocked
+      file: ./src/handlers/GToken/index.ts
+  - kind: ethereum
+    name: gETHLockedDepositNft
+    network: '{{network}}'
+    source:
+      address: '{{gETH.gTokenLockedDepositNft.address}}'
+      abi: GTokenLockedDepositNft
+      startBlock: {{gETH.gTokenLockedDepositNft.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

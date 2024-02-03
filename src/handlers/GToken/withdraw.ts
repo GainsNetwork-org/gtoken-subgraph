@@ -3,7 +3,6 @@ import { Withdraw } from '../../types/GToken/GToken';
 import { createOrLoadAccount, createOrLoadWithdraw, createOrLoadTransaction, exponentToBigDecimal } from '../../utils';
 import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
-import { GTOKEN_DECIMALS, GTOKEN_DECIMALS_BD } from '../../utils/constants';
 
 /**
  * Account withdraws assets from the vault in exchange for gTokens.
@@ -30,7 +29,10 @@ export function handleWithdraw(event: Withdraw): void {
     .div(exponentToBigDecimal(vault.assetDecimals))
     .truncate(vault.assetDecimals);
 
-  const sharesAmount = shares.toBigDecimal().div(GTOKEN_DECIMALS_BD).truncate(GTOKEN_DECIMALS);
+  const sharesAmount = shares
+    .toBigDecimal()
+    .div(exponentToBigDecimal(vault.shareDecimals!.toI32()))
+    .truncate(vault.shareDecimals!.toI32());
   const withdraw = createOrLoadWithdraw(
     { account, assets: assetsAmount, shares: sharesAmount, transaction, accountVault, vault },
     true

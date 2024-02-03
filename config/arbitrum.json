@@ -1,11 +1,37 @@
 {
   "network": "arbitrum-one",
-  "gToken": {
-    "address": "0xd85E038593d7A098614721EaE955EC2022B9B91B",
-    "startBlock": 49275523
+  "graft": {
+    "base": "QmX75C8NmjbxZU7Mambhi3WFMcv4moJSpFtgnAgDJen4dz",
+    "block": 171593632
   },
-  "gTokenLockedDepositNft": {
-    "address": "0x673cf5AB7b44Caac43C80dE5b99A37Ed5B3E4Cc6",
-    "startBlock": 49275523
+  "gDAI": {
+    "gToken": {
+      "address": "0xd85E038593d7A098614721EaE955EC2022B9B91B",
+      "startBlock": 49275523
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0x673cf5AB7b44Caac43C80dE5b99A37Ed5B3E4Cc6",
+      "startBlock": 49275523
+    }
+  },
+  "gUSDC": {
+    "gToken": {
+      "address": "0xd3443ee1e91aF28e5FB858Fbd0D72A63bA8046E0",
+      "startBlock": 171593632
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0xD846b17A07E26F9832F8DE940101C5f764Df3804",
+      "startBlock": 171593632
+    }
+  },
+  "gETH": {
+    "gToken": {
+      "address": "0x5977A9682D7AF81D347CFc338c61692163a2784C",
+      "startBlock": 171593632
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0xb0437407556fEC72D2d0A5069A3fC59167A6E96c",
+      "startBlock": 171593632
+    }
   }
 }

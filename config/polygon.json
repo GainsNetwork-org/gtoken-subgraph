@@ -1,11 +1,37 @@
 {
   "network": "matic",
-  "gToken": {
-    "address": "0x91993f2101cc758D0dEB7279d41e880F7dEFe827",
-    "startBlock": 36865592
+  "graft": {
+    "base": "QmTNbm2TGfoKx62gJxfthtv2qH5Q8eRHpjm6WriC5ZfKmS",
+    "block": 52455889
   },
-  "gTokenLockedDepositNft": {
-    "address": "0xDd42AA3920C1d5b5FD95055d852135416369Bcc1",
-    "startBlock": 36865592
+  "gDAI": {
+    "gToken": {
+      "address": "0x91993f2101cc758D0dEB7279d41e880F7dEFe827",
+      "startBlock": 36865592
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0xDd42AA3920C1d5b5FD95055d852135416369Bcc1",
+      "startBlock": 36865592
+    }
+  },
+  "gUSDC": {
+    "gToken": {
+      "address": "0x29019Fe2e72E8d4D2118E8D0318BeF389ffe2C81",
+      "startBlock": 52455889
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0x4329c6364139D6D2b1C33E22983e568641E5261E",
+      "startBlock": 52455889
+    }
+  },
+  "gETH": {
+    "gToken": {
+      "address": "0x1544E1fF1a6f6Bdbfb901622C12bb352a43464Fb",
+      "startBlock": 52455889
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0xC4A8aB1187E7Af96D485D331d5432798c80D64CF",
+      "startBlock": 52455889
+    }
   }
 }

@@ -1,10 +1,10 @@
 import { log } from '@graphprotocol/graph-ts';
 import { Transfer } from '../../types/GToken/GToken';
-import { createOrLoadAccount, createOrLoadTransaction } from '../../utils';
+import { createOrLoadAccount, createOrLoadTransaction, exponentToBigDecimal } from '../../utils';
 import { createOrLoadAccountVault } from '../../utils/access/accountVault';
 import { createOrLoadTransfer } from '../../utils/access/transfer';
 import { createOrLoadVault, updateVaultForBlock } from '../../utils/access/vault';
-import { GTOKEN_DECIMALS, GTOKEN_DECIMALS_BD, ZERO_ADDRESS } from '../../utils/constants';
+import { ZERO_ADDRESS } from '../../utils/constants';
 
 function shouldProcess(from: string, to: string, contractAddress: string): boolean {
   return from != ZERO_ADDRESS && to != ZERO_ADDRESS && from != contractAddress && to != contractAddress;
@@ -21,7 +21,11 @@ export function handleTransfer(event: Transfer): void {
     event.transaction.hash.toHexString(),
   ]);
 
-  const sharesAmount = event.params.value.toBigDecimal().div(GTOKEN_DECIMALS_BD).truncate(GTOKEN_DECIMALS);
+  let vault = createOrLoadVault(event.address.toHexString(), false);
+  const sharesAmount = event.params.value
+    .toBigDecimal()
+    .div(exponentToBigDecimal(vault.shareDecimals!.toI32()))
+    .truncate(vault.shareDecimals!.toI32());
   const transaction = createOrLoadTransaction(event, 'Transfer', true);
 
   if (!shouldProcess(event.params.from.toHexString(), event.params.to.toHexString(), event.address.toHexString())) {
@@ -32,7 +36,6 @@ export function handleTransfer(event: Transfer): void {
     return;
   }
 
-  let vault = createOrLoadVault(event.address.toHexString(), false);
   vault = updateVaultForBlock(vault, event.block, true);
   const from = event.params.from.toHexString();
   const fromAccount = createOrLoadAccount(from, true);
