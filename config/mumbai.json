@@ -1,11 +1,37 @@
 {
   "network": "mumbai",
-  "gToken": {
-    "address": "0x5215C8B3e76D493c8bcb9A7352F7afe18A6bb091",
-    "startBlock": 29686467
+  "graft": {
+    "base": "Qma2zt2CC5mU59M4VqncR2yJTitZ5zgGFrsZpAVmwXMtJQ",
+    "block": 44875671
   },
-  "gTokenLockedDepositNft": {
-    "address": "0x5DEcD9E0BE3a720Dea90BADe24658e220514515f",
-    "startBlock": 29686467
+  "gDAI": {
+    "gToken": {
+      "address": "0x5215C8B3e76D493c8bcb9A7352F7afe18A6bb091",
+      "startBlock": 29686467
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0x5DEcD9E0BE3a720Dea90BADe24658e220514515f",
+      "startBlock": 29686467
+    }
+  },
+  "gUSDC": {
+    "gToken": {
+      "address": "0xd7F8D728414a6aD18476B5a72a0C20be5704f868",
+      "startBlock": 44875671
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0xdaD7CCa8F46f64AC6494C69E6d54F13417f1A1c2",
+      "startBlock": 44875671
+    }
+  },
+  "gETH": {
+    "gToken": {
+      "address": "0x71A52242f7430cF4a290854d93f6719a8C35F287",
+      "startBlock": 44875671
+    },
+    "gTokenLockedDepositNft": {
+      "address": "0x15CfF692Eb8080C1d231cE2aA7DB1c8063516D02",
+      "startBlock": 44875671
+    }
   }
 }
