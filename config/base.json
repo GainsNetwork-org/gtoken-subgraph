@@ -1,0 +1,14 @@
+{
+    "network": "base",
+    "gUSDC": {
+      "gToken": {
+        "address": "0xad20523A7dC37bAbc1CC74897E4977232b3D02e5",
+        "startBlock": 20161012
+      },
+      "gTokenLockedDepositNft": {
+        "address": "0x7d0131AceEfd2ACc919d7B2AC32e8e6C81a05cEB",
+        "startBlock": 20161012
+      }
+    }
+  }
+  
