@@ -1,0 +1,13 @@
+{
+  "network": "apechain-mainnet",
+  "gAPE": {
+    "gToken": {
+      "address": "",
+      "startBlock": 0
+    },
+    "gTokenLockedDepositNft": {
+      "address": "",
+      "startBlock": 0
+    }
+  }
+}

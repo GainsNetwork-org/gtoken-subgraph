@@ -14,6 +14,7 @@
     "build": "npx graph build",
     "codegen": "npx graph codegen --output-dir src/types/",
     "deploy": "npx graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
+    "deploy:alchemy": "npx graph deploy --node https://subgraphs.alchemy.com/api/subgraphs/deploy --deploy-key ${DEPLOY_KEY} --ipfs https://ipfs.satsuma.xyz",
     "deploy:hosted": "npx graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --access-token ${GRAPH_ACCESS_TOKEN}",
     "deploy:studio": "npx graph deploy --studio",
     "generate:schema": "node merge.js",
@@ -21,14 +22,17 @@
     "configure:polygon": "yarn clean && yarn generate:schema && yarn prepare:polygon && yarn codegen",
     "configure:arbitrum": "yarn clean && yarn generate:schema && yarn prepare:arbitrum && yarn codegen",
     "configure:base": "yarn clean && yarn generate:schema && yarn prepare:base && yarn codegen",
+    "configure:apechain-alchemy": "yarn clean && yarn generate:schema && yarn prepare:apechain-alchemy && yarn codegen",
     "prepare:mumbai": "mustache config/mumbai.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:polygon": "mustache config/polygon.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:base": "mustache config/base.json subgraph-base.yaml.mustache > subgraph.yaml",
+    "prepare:base-alchemy": "mustache config/base-alchemy.json no-graft.yaml.mustache > subgraph.yaml",
     "deploy:mumbai": "yarn clean && yarn configure:mumbai && yarn deploy:hosted thebuidler/gtoken-mumbai-mc1",
     "deploy:polygon": "yarn clean && yarn configure:polygon && yarn deploy:studio gtoken-polygon-mc1",
     "deploy:arbitrum": "yarn clean && yarn configure:arbitrum && yarn deploy:studio gtoken-arbitrum-mc1",
-    "deploy:base": "yarn clean && yarn configure:base && yarn deploy:studio deploy:studio gtoken-base"
+    "deploy:base": "yarn clean && yarn configure:base && yarn deploy:studio gtoken-base",
+    "deploy:apechain-alchemy": "yarn clean && yarn configure:apechain-alchemy && yarn deploy:alchemy gtoken-apechain"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.74.1",
