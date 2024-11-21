@@ -2,12 +2,12 @@
   "network": "apechain-mainnet",
   "gAPE": {
     "gToken": {
-      "address": "",
-      "startBlock": 0
+      "address": "0xDd9C98e5022AF88B9c991ab24F02B4A8Be81D860",
+      "startBlock": 4880295
     },
     "gTokenLockedDepositNft": {
-      "address": "",
-      "startBlock": 0
+      "address": "0xba25437147E4BFac2aD26c0491F8C38dc4457CD9",
+      "startBlock": 4880295
     }
   }
 }
