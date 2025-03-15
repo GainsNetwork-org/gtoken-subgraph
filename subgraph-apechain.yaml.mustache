@@ -10,9 +10,9 @@ dataSources:
     name: gToken
     network: '{{network}}'
     source:
-      address: '{{gUSDC.gToken.address}}'
+      address: '{{gAPE.gToken.address}}'
       abi: GToken
-      startBlock: {{gUSDC.gToken.startBlock}}
+      startBlock: {{gAPE.gToken.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -47,12 +47,12 @@ dataSources:
           handler: handleDepositUnlocked
       file: ./src/handlers/GToken/index.ts
   - kind: ethereum
-    name: gUSDCLockedDepositNft
+    name: gAPELockedDepositNft
     network: '{{network}}'
     source:
-      address: '{{gUSDC.gTokenLockedDepositNft.address}}'
+      address: '{{gAPE.gTokenLockedDepositNft.address}}'
       abi: GTokenLockedDepositNft
-      startBlock: {{gUSDC.gTokenLockedDepositNft.startBlock}}
+      startBlock: {{gAPE.gTokenLockedDepositNft.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
