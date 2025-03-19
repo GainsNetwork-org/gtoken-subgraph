@@ -21,18 +21,21 @@
     "configure:mumbai": "yarn clean && yarn generate:schema && yarn prepare:mumbai && yarn codegen",
     "configure:polygon": "yarn clean && yarn generate:schema && yarn prepare:polygon && yarn codegen",
     "configure:arbitrum": "yarn clean && yarn generate:schema && yarn prepare:arbitrum && yarn codegen",
+    "configure:arbitrum-new": "yarn clean && yarn generate:schema && yarn prepare:arbitrum-new && yarn codegen",
     "configure:base": "yarn clean && yarn generate:schema && yarn prepare:base && yarn codegen",
     "configure:apechain": "yarn clean && yarn generate:schema && yarn prepare:apechain && yarn codegen",
     "prepare:mumbai": "mustache config/mumbai.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:polygon": "mustache config/polygon.json subgraph.yaml.mustache > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.yaml.mustache > subgraph.yaml",
+    "prepare:arbitrum-new": "mustache config/arbitrum.json subgraph-no-graft.yaml.mustache > subgraph.yaml",
     "prepare:base": "mustache config/base.json subgraph-base.yaml.mustache > subgraph.yaml",
     "prepare:apechain": "mustache config/apechain.json subgraph-apechain.yaml.mustache > subgraph.yaml",
     "deploy:mumbai": "yarn clean && yarn configure:mumbai && yarn deploy:hosted thebuidler/gtoken-mumbai-mc1",
     "deploy:polygon": "yarn clean && yarn configure:polygon && yarn deploy:studio gtoken-polygon-mc1",
     "deploy:arbitrum": "yarn clean && yarn configure:arbitrum && yarn deploy:studio gtoken-arbitrum-mc1",
     "deploy:base": "yarn clean && yarn configure:base && yarn deploy:studio gtoken-base",
-    "deploy:apechain": "yarn clean && yarn configure:apechain && yarn deploy:alchemy gtoken-apechain"
+    "deploy:apechain": "yarn clean && yarn configure:apechain && yarn deploy:alchemy gtoken-apechain",
+    "deploy:arbitrum-new": "yarn clean && yarn configure:arbitrum-new && yarn deploy:studio gtoken-arbitrum-mc2"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.74.1",
